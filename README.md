@@ -1,5 +1,5 @@
 # addstory_IG-Clone
-Pemrograman yang dipakai CI 4 - PHP 8 - Javascript - CSS - HTML
+Pemrograman yang dipakai CI 4 - PHP 8 - Javascript - CSS - HTML  
 Belum responsive, responsive untuk layar 14"
 
 Preview:
