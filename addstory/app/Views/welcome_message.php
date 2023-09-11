@@ -113,8 +113,7 @@
         </div>
         <br>
         <br>
-        <br>
-        <br>
+        <br>    
         <img src="/img/ig_logo_checklist.png" alt="checklist_logo" style="width: 96px; height: 96px;">  
         <p class="notification-text">Your post has been shared</p>
     </div>
