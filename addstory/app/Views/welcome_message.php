@@ -49,16 +49,11 @@
 </div>   
 
 <div id="postModal" class="modal">
-    <button id="closeModalButton" class="close-button">&times;</button>
-    <button id="cancel_cross" class="close-button" style="display: none;">&times;</button>
+    <button id="closeModalButton" class="close-button">&times;</button>    
     <div class="modal-content">  
-    <div class="header">
-            <img src="/img/arrow_back.svg" alt="arrow back" class="back-arrow" style="display: none;" id="cancel">
-            <div class="modal-title">
+    <div class="modal-title">
                 Create new post
-            </div>
-            <p class="share-text" style="display: none;" id="share_story">Share</p>            
-        </div>
+    </div>    
         <hr class="title-line">
         <br>
         <br>
@@ -69,31 +64,45 @@
         </div>                  
         <div class="button-container">
             <button id="selectFromComputer">Select from computer</button>
-        </div>
-        <div id="imageAndCaption" style="display: none;">            
-            <table>
-                <tr>
-                    <td>
-                        <div class="image-container">
-                            <img id="selectedImage" src="#" alt="Selected Image" style="max-width: 200px; max-height: 200px;">
-                        </div>
-                    </td>
-                    <td>
-                    <div class="useraccount-position">
-            <div class="user-img-story">
-                <img src="/img/default.svg" alt="User Logo" class="user-img">
-            </div>
-            <p class="username">apolo.6</p>
-        </div>
-                        <input type="text" id="captionInput" class="captionText" placeholder="Write a caption...">
-                    </td>
-                </tr>
-            </table>
-        </div>
+        </div>        
     </div>
 </div>
 
+<div id="postModalCaption" class="modal">    
+    <button id="cancel_cross" class="close-button">&times;</button>
+    <div class="modal-content-story">  
+        <div class="header">
+            <img src="/img/arrow_back.svg" alt="arrow back" class="back-arrow" id="cancel">
+            <div class="modal-title">
+                Create new post
+            </div>
+            <p class="share-text" id="share_story">Share</p>            
+        </div>
+        <hr class="title-line">       
+        <div class="form-row">
+            <div class="form-element">
+            <img id="selectedImage" src="#" alt="Selected Image" style="width: 365px; height: 365px;">
+            </div>
+            <div class="form-element">
+            <div class="caption-input-container">
+                <div class="useraccount-position">
+                    <div class="user-img-story">
+                        <img src="/img/default.svg" alt="User Logo" class="user-img">
+                    </div>
+                    <p class="username">apolo.6</p>
+                </div>
+                <textarea id="captionInput" class="captionText" placeholder="Write a caption..."></textarea>                
+                
+            </div>            
+            <div id="charCount" class="char-count">0/2,200</div>
+            </div>
+        </div>                  
+    </div>
+</div>
+
+
 <div id="discardModal" class="modal" style="display: none;">
+<button id="cancelCrossDiscardButton" class="close-button">&times;</button>
     <div class="modal-content-discard">
         <p class="discard-text">Discard a post?</p>
         <p class="discard-info">If you leave, your edits won't be saved.</p>
@@ -113,7 +122,7 @@
         </div>
         <br>
         <br>
-        <br>    
+        <br>       
         <img src="/img/ig_logo_checklist.png" alt="checklist_logo" style="width: 96px; height: 96px;">  
         <p class="notification-text">Your post has been shared</p>
     </div>
@@ -142,16 +151,8 @@ function toggleLike(button) {
 }
 
 const shareButton = document.getElementById('share_story');
-shareButton.addEventListener('click', () => {     
-    imageAndCaption.style.display = 'none';
-    cancel.style.display = 'none';
-    cancel_cross.style.display = 'none';
-    share_story.style.display = 'none';
-    closeModalButton.style.display = 'block';
-    dropArea.style.display = 'block';
-    selectButton.style.display = 'block'; 
-    selectButton.classList.add('centered-button');
-    postModal.style.display = 'none';
+shareButton.addEventListener('click', () => {                 
+    postModalCaption.style.display = 'none';
     createNewPost();
 });
 
@@ -181,7 +182,7 @@ function createNewPost() {
     
     function updateFormattedTime() {
     const currentTime = new Date();
-    const timeDifference = Math.floor((currentTime - startTime) / 1000); // Time difference in seconds
+    const timeDifference = Math.floor((currentTime - startTime) / 1000);
 
     if (timeDifference < 60) {      
         formattedTime = 'a few seconds ago';
@@ -235,8 +236,11 @@ setInterval(updateFormattedTime, 1000);
     const caption = document.createElement('div');
     caption.classList.add('caption');
     caption.innerHTML = '<b>apolo.6</b> ' + captionText;
+    caption.style.maxWidth = '468px';
+    caption.style.wordWrap = 'break-word';
+
     const hrElement = document.createElement('hr');
-    hrElement.style.width = '468px';
+    hrElement.style.width = '468px';    
     hrElement.style.marginLeft = '46px';
 
     postContainer.appendChild(userTextName);
@@ -248,6 +252,7 @@ setInterval(updateFormattedTime, 1000);
     const mainContent = document.querySelector('main');
     mainContent.insertBefore(postContainer, mainContent.firstChild);
     captionInput.value = '';    
+    selectedImage.src = "";
     showPostSharedModal();
 }
 
@@ -256,20 +261,32 @@ function showPostSharedModal() {
 }
 
 const postModal = document.getElementById('postModal');
+const postModalCaption = document.getElementById('postModalCaption');
 const postSharedModal = document.getElementById('postSharedModal');
 const openModalButton = document.getElementById('openModalButton');
 const closeModalButton = document.getElementById('closeModalButton');
 const closeModalButtonShared = document.getElementById('closeModalButtonShared');
-const imageAndCaption = document.getElementById('imageAndCaption');
 const selectedImage = document.getElementById('selectedImage');
 const captionInput = document.getElementById('captionInput');
 const discardModal = document.getElementById('discardModal');
 const discardButton = document.getElementById('discardButton');
 const cancelDiscardButton = document.getElementById('cancelDiscardButton');
+const cancelCrossDiscardButton = document.getElementById('cancelCrossDiscardButton');
 const selectButton = document.getElementById('selectFromComputer');
 const cancel = document.getElementById('cancel');
 const cancel_cross = document.getElementById('cancel_cross');
-const share_story = document.getElementById('share_story');
+
+const charCount = document.getElementById('charCount');
+
+captionInput.addEventListener('input', function () {
+  const maxLength = 2200;
+  if (this.value.length > maxLength) {
+    this.value = this.value.slice(0, maxLength);
+  }
+
+  charCount.textContent = `${this.value.length.toLocaleString()}/${maxLength.toLocaleString()}`;
+});
+
 function openModal() {
     postModal.style.display = 'block';
 }
@@ -293,18 +310,17 @@ cancel_cross.addEventListener('click', () => {
 
 discardButton.addEventListener('click', () => {  
     discardModal.style.display = 'none';
-    imageAndCaption.style.display = 'none';
-    cancel.style.display = 'none';
-    cancel_cross.style.display = 'none';
-    share_story.style.display = 'none';
-    closeModalButton.style.display = 'block';
-    dropArea.style.display = 'block';
-    selectButton.style.display = 'block';
-    selectedImage.src = "";    
-    selectButton.classList.add('centered-button');
+    postModalCaption.style.display = 'none';
+    postModal.style.display = 'block';        
+    selectedImage.src = "";
+    captionInput.value = '';      
 });
 
 cancelDiscardButton.addEventListener('click', () => {   
+    discardModal.style.display = 'none';
+});
+
+cancelCrossDiscardButton.addEventListener('click', () => {   
     discardModal.style.display = 'none';
 });
 
@@ -333,15 +349,10 @@ function handleFiles(files) {
             const reader = new FileReader();
             reader.onload = function (event) {            
                 const selectButton = document.getElementById('selectFromComputer');
-                if (selectButton) {                   
-                    selectButton.style.display = 'none';                                  
-                    imageAndCaption.style.display = 'block';
-                    cancel.style.display = 'block';
-                    cancel_cross.style.display = 'block';
-                    share_story.style.display = 'block';
-                    selectedImage.src = event.target.result;
-                    dropArea.style.display = 'none';  
-                    closeModalButton.style.display = 'none';                       
+                if (selectButton) {                                      
+                    selectedImage.src = event.target.result;                                          
+                    postModalCaption.style.display = 'block';
+                    postModal.style.display = 'none';
                 }
             };
             reader.readAsDataURL(file);
@@ -359,14 +370,9 @@ function displaySelectedImage(file) {
     const reader = new FileReader();
 
     reader.onload = function(event) {
-        selectedImage.src = event.target.result;
-        imageAndCaption.style.display = 'block';
-        cancel.style.display = 'block';
-        cancel_cross.style.display = 'block';
-        share_story.style.display = 'block';
-        dropArea.style.display = 'none';
-        selectButton.style.display = 'none';
-        closeModalButton.style.display = 'none';         
+        selectedImage.src = event.target.result;  
+        postModalCaption.style.display = 'block';
+        postModal.style.display = 'none';              
     };
 
     reader.readAsDataURL(file);
