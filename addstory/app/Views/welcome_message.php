@@ -253,6 +253,7 @@ setInterval(updateFormattedTime, 1000);
     mainContent.insertBefore(postContainer, mainContent.firstChild);
     captionInput.value = '';    
     selectedImage.src = "";
+    charCount.textContent = '0/2,200';
     showPostSharedModal();
 }
 
@@ -314,6 +315,7 @@ discardButton.addEventListener('click', () => {
     postModal.style.display = 'block';        
     selectedImage.src = "";
     captionInput.value = '';      
+    charCount.textContent = '0/2,200';
 });
 
 cancelDiscardButton.addEventListener('click', () => {   
