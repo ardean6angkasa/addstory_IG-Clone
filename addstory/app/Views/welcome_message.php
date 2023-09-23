@@ -185,16 +185,19 @@ function createNewPost() {
     const timeDifference = Math.floor((currentTime - startTime) / 1000);
 
     if (timeDifference < 60) {      
-        formattedTime = 'a few seconds ago';
+        formattedTime = `${timeDifference} second${timeDifference > 1 ? 's' : ''} ago`;
     } else if (timeDifference < 3600) {      
         const minutesAgo = Math.floor(timeDifference / 60);
         formattedTime = `${minutesAgo} minute${minutesAgo > 1 ? 's' : ''} ago`;
     } else if (timeDifference < 86400) {       
         const hoursAgo = Math.floor(timeDifference / 3600);
         formattedTime = `${hoursAgo} hour${hoursAgo > 1 ? 's' : ''} ago`;
-    } else {      
+    } else if (timeDifference < 604800) { 
         const daysAgo = Math.floor(timeDifference / 86400);
         formattedTime = `${daysAgo} day${daysAgo > 1 ? 's' : ''} ago`;
+    } else {
+        const weeksAgo = Math.floor(timeDifference / 604800);
+        formattedTime = `${weeksAgo} week${weeksAgo > 1 ? 's' : ''} ago`;
     }
    
     username.innerHTML = `apolo.6 <span class="muted-dot">•</span> ${formattedTime}`;
@@ -235,7 +238,9 @@ setInterval(updateFormattedTime, 1000);
 
     const caption = document.createElement('div');
     caption.classList.add('caption');
+    if (captionText !== '') {
     caption.innerHTML = '<b>apolo.6</b> ' + captionText;
+    }
     caption.style.maxWidth = '468px';
     caption.style.wordWrap = 'break-word';
 
