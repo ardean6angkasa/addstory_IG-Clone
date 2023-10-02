@@ -272,7 +272,6 @@ const postSharedModal = document.getElementById('postSharedModal');
 const openModalButton = document.getElementById('openModalButton');
 const closeModalButton = document.getElementById('closeModalButton');
 const closeModalButtonShared = document.getElementById('closeModalButtonShared');
-const selectedImage = document.getElementById('selectedImage');
 const captionInput = document.getElementById('captionInput');
 const discardModal = document.getElementById('discardModal');
 const discardButton = document.getElementById('discardButton');
@@ -377,6 +376,7 @@ function displaySelectedImage(file) {
     const reader = new FileReader();
 
     reader.onload = function(event) {
+        const selectedImage = document.getElementById('selectedImage');
         selectedImage.src = event.target.result;  
         postModalCaption.style.display = 'block';
         postModal.style.display = 'none';              
