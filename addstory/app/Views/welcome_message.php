@@ -62,7 +62,7 @@
             <div id="dropArea" class="drop-area">
                 <img src="/img/image.png" alt="gallery" style="width: 96px; height: 77px;">
                 <p>Drag photos here</p>
-                <input type="file" id="uploadFile" accept="image/*" multiple style="display: none;">
+                <input type="file" id="uploadFile" accept="image/*" style="display: none;">
             </div>
             <div class="button-container">
                 <button id="selectFromComputer">Select from computer</button>
